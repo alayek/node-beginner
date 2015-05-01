@@ -1,5 +1,11 @@
-function route (path) {
-	console.log("About to route a request for " + path);
+function route (handle, path) {
+	if(typeof handle[path] === 'function'){
+		handle[path]();
+	}
+	else {
+		console.log("No route found for your request " + path);	
+	}
+	
 }
 
 exports.route = route;
