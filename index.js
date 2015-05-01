@@ -1,3 +1,3 @@
 var server = require('./server.js')
 
-server.start()
+server.start(8000)

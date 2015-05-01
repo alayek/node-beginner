@@ -1,6 +1,6 @@
 var http = require("http");
 
-function start () {
+function start (portProvided) {
 	// request handler
 	function onRequest (request, response) {
 
@@ -10,9 +10,10 @@ function start () {
 	}
 
 	// start the server with the callback
-	http.createServer(onRequest).listen(8888);
+	var port = portProvided || 8888;
+	http.createServer(onRequest).listen(port);
 
-	console.log("** Server Started on port 8888 **");
+	console.log("** Server Started on port " + port + " **");
 }
 
 
