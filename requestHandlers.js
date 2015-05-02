@@ -1,19 +1,24 @@
-var exec = require("child_process").exec;
+var queryString = require("querystring");
 
-function start (response) {
-	console.log("About to handle a request for 'start'");
-
-	exec("find /", {timeout: 10000, maxBuffer: 20000*1024}, function(error, stdout, stderr) {
-		response.writeHead(200, {'Content-Type' : 'text/plain'});
-		response.write(stdout);
-		response.end();
-	});
+function start (response, postData) {
+	var body = '<html>' + 
+		'<head><meta charset="utf-8"></head>' + 
+		'<body>' + 
+		'<form action="/upload" method="POST">' +
+		'<textarea name="text" rows="20" cols="60"></textarea>' + 
+		'<input type="submit" value="Submit Text">' + 
+		'</form>' +
+		'</body>' + 
+		'</html>';
+	response.writeHead(200, {'Content-Type' : 'text/html'});
+	response.write(body);
+	response.end();
 }
 
-function upload (response) {
+function upload (response, postData) {
 	console.log("About to handle a request for 'upload'");
 	response.writeHead(200, {'Content-Type' : 'text/plain'});
-	response.write("Thank you for uploading");
+	response.write("You have sent : " + queryString.parse(postData).text);
 	response.end();
 }
 

@@ -5,9 +5,19 @@ function start (portProvided, route, handle) {
 	// request handler
 	function onRequest (request, response) {
 		var pathname = url.parse(request.url).pathname;
+		var postData = "";
 		console.log('request for ' + pathname + ' recieved.');
+		
+		request.setEncoding("utf-8");
 
-		route(handle, pathname, response);
+		request.addListener("data", function(chunk) {
+			postData += chunk;
+			console.log("Recieved post data chunk " + chunk);
+		});
+
+		request.addListener("end", function() {
+			route(handle, pathname, response, postData);
+		});
 	}
 
 	// start the server with the callback

@@ -1,6 +1,6 @@
-function route (handle, path, response) {
+function route (handle, path, response, postData) {
 	if(typeof handle[path] === 'function'){
-		return handle[path](response);
+		return handle[path](response, postData);
 	}
 	else {
 		console.log("No route found for your request " + path);	
