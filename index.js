@@ -9,5 +9,6 @@ handle['/start/'] = requestHandlers.start;
 handle['/start'] = handle['/start/'];
 handle['/upload'] = requestHandlers.upload;
 handle['/upload/'] = requestHandlers.upload;
+handle['/show'] = handle['/show/'] = requestHandlers.show;
 
-server.start(8000, router.route, handle)
+server.start(8000, router.route, handle);
