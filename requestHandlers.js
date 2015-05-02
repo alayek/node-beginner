@@ -1,19 +1,20 @@
-function start () {
+var exec = require("child_process").exec;
+
+function start (response) {
 	console.log("About to handle a request for 'start'");
 
-	function sleep (milliseconds) {
-		var startTime = new Date().getTime();
-		while(new Date().getTime() < startTime + milliseconds);
-	}
-
-	sleep(10000);
-
-	return "Hello there";
+	exec("ls -lah", function(error, stdout, stderr) {
+		response.writeHead(200, {'Content-Type' : 'text/plain'});
+		response.write(stdout);
+		response.end();
+	});
 }
 
-function upload () {
+function upload (response) {
 	console.log("About to handle a request for 'upload'");
-	return "Thank you for uploading";
+	response.writeHead(200, {'Content-Type' : 'text/plain'});
+	response.write("Thank you for uploading");
+	response.end();
 }
 
 exports.start = start;
